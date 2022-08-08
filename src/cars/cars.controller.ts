@@ -1,22 +1,17 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { CarsService } from './cars.service';
 
 @Controller('cars')
 export class CarsController {
-  private cars = ['Toyota', 'Honda', 'Mazda'];
+  constructor(private readonly carsService: CarsService) {}
+
   @Get()
   getAllCars() {
-    return this.cars;
+    return this.carsService.getAllCars();
   }
 
   @Get(':id')
-  getCarById(@Param('id') id: string) {
-    const parseId = +id;
-
-    if (isNaN(parseId)) return 'Invalid Id';
-    const car =
-      this.cars.length - 1 < parseId
-        ? `There is no car with id ${parseId}`
-        : this.cars[parseId];
-    return car;
+  getCarById(@Param('id', ParseIntPipe) id: number) {
+    return this.carsService.getCarById(id);
   }
 }
