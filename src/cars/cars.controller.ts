@@ -20,7 +20,7 @@ export class CarsController {
   }
 
   @Get(':id')
-  getCarById(@Param('id', ParseIntPipe) id: number) {
+  getCarById(@Param('id') id: string) {
     return this.carsService.getCarById(id);
   }
 
@@ -31,12 +31,12 @@ export class CarsController {
     return body;
   }
   @Patch(':id')
-  updateCar(@Param('id', ParseIntPipe) id: number, @Body() body) {
+  updateCar(@Param('id') id: string, @Body() body) {
     return { id, body };
   }
 
   @Delete(':id')
-  deleteCar(@Param('id', ParseIntPipe) id: number) {
+  deleteCar(@Param('id') id: string) {
     return { id };
   }
 }
