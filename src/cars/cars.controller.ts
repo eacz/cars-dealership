@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -20,7 +21,7 @@ export class CarsController {
   }
 
   @Get(':id')
-  getCarById(@Param('id') id: string) {
+  getCarById(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return this.carsService.getCarById(id);
   }
 
@@ -31,12 +32,15 @@ export class CarsController {
     return body;
   }
   @Patch(':id')
-  updateCar(@Param('id') id: string, @Body() body) {
+  updateCar(
+    @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
+    @Body() body,
+  ) {
     return { id, body };
   }
 
   @Delete(':id')
-  deleteCar(@Param('id') id: string) {
+  deleteCar(@Param('id', new ParseUUIDPipe({ version: '4' })) id: string) {
     return { id };
   }
 }
