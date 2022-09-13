@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
 import { Car } from './interfaces/car.interface';
+import { CreateCarDto } from './dto/create-car.dto';
 
 @Injectable()
 export class CarsService {
@@ -20,6 +21,12 @@ export class CarsService {
 
     if (!car) throw new BadRequestException(`There is no car with id ${id}`);
 
+    return car;
+  }
+
+  create(createCarDto: CreateCarDto) {
+    const car: Car = { ...createCarDto, id: uuid() };
+    this.cars.push(car);
     return car;
   }
 }

@@ -27,10 +27,9 @@ export class CarsController {
 
   @Post()
   createCar(@Body() createCardDto: CreateCarDto) {
-    console.log(createCardDto);
-
-    return createCardDto;
+    return this.carsService.create(createCardDto);
   }
+
   @Patch(':id')
   updateCar(
     @Param('id', new ParseUUIDPipe({ version: '4' })) id: string,
