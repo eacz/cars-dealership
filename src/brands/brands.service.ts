@@ -10,13 +10,7 @@ import { Brand } from './entities/brand.entity';
 
 @Injectable()
 export class BrandsService {
-  private brands: Brand[] = [
-    {
-      id: uuid(),
-      name: 'Toyota',
-      createdAt: Date.now(),
-    },
-  ];
+  private brands: Brand[] = [];
 
   create(createBrandDto: CreateBrandDto) {
     const alreadyExists = !!this.brands.find(
@@ -51,7 +45,11 @@ export class BrandsService {
   update(id: string, updateBrandDto: UpdateBrandDto) {
     let updatedBrand = this.findOne(id);
 
-    updatedBrand = { ...updatedBrand, ...updateBrandDto, updatedAt: Date.now() };
+    updatedBrand = {
+      ...updatedBrand,
+      ...updateBrandDto,
+      updatedAt: Date.now(),
+    };
     this.brands = this.brands.map((brand) =>
       brand.id === id ? updatedBrand : brand,
     );
@@ -60,5 +58,9 @@ export class BrandsService {
 
   remove(id: string) {
     this.brands = this.brands.filter((brand) => brand.id !== id);
+  }
+
+  fillBrandsWithSeedData(brands: Brand[]) {
+    this.brands = brands;
   }
 }
