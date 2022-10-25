@@ -9,3 +9,5 @@ Populate DB
 ```
 {{url}}/seed
 ```
+
+//TODO document all endpoints
